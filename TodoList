@@ -1,0 +1,10 @@
+Todo List:
+
+- Install and setup Django:
+	- installed Django rest framework to create the API in the Backend.
+	- installed Django cors headers to make everything between API and Backend work securely.
+	- installed Djoser to craete Users, Login and get Token for Authentication
+	- installed Pillow to resize Images (Python Image library)
+	- installed Stripe to handle payment processing.
+
+- Install and setup Vue.js
