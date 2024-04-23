@@ -8,6 +8,8 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField()
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     class Meta:
         ordering = ('name',)
@@ -17,6 +19,11 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return f'/{self.slug}/'
+    
+    def get_gategory_image(self):
+        if self.image:
+            return 'http://127.0.0.1:8000' + self.image.url
+        return ''
 
  # Models
 
