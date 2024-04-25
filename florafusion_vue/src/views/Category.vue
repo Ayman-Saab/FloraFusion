@@ -1,24 +1,26 @@
 <template>
-    <div class="page-category container is-max-widescreen">
-        <div class="columns is-multiline">
-            <div class="column is-12 mb-5">
-                <section class="hero is-medium is-dark mb-6">
-                    <div class="hero-body" :style="{'background-image': `url(${category.get_gategory_image})`}">
-                        <h2 class="title mb-4">
-                            {{ category.name }}
-                        </h2>
-                        <p class="is-size-5">{{ category.description }}</p>
-                    </div>
-                </section>
-            </div>
+    <section class="section">
+        <div class="page-category container is-max-widescreen">
+            <div class="columns is-multiline">
+                <div class="column is-12 mb-5">
+                    <section class="hero is-medium is-dark mb-6">
+                        <div class="hero-body" :style="{'background-image': `url(${category.get_gategory_image})`}">
+                            <h2 class="title mb-4">
+                                {{ category.name }}
+                            </h2>
+                            <p class="is-size-5">{{ category.description }}</p>
+                        </div>
+                    </section>
+                </div>
 
-            <ProductBox
-                v-for="product in category.products"
-                v-bind:key="product.id"
-                v-bind:product="product"
-            />
+                <ProductBox
+                    v-for="product in category.products"
+                    v-bind:key="product.id"
+                    v-bind:product="product"
+                />
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 
@@ -92,7 +94,6 @@ export default {
 .page-category {
 
     .hero-body {
-        /* background-image: url('/home/dci-student/final_project/FloraFusion/florafusion_vue/src/assets/images/zimmerpflanzen.jpg'); */
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

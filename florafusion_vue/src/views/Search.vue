@@ -1,20 +1,19 @@
 <template>
-    <div class="page-search">
-        <div class="columns is-multiline">
-            <div class="column is-12">
-                <h1 class="title">Search</h1>
-                <h2 class="is-size-5 has-text-grey">
-                    Search term: "{{ query }}"
-                </h2>
+    <section class="section">
+        <div class="page-search container is-max-widescreen">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    <h1 class="title"><span>{{ products.length }}</span> Pflanzen gefunden mit <span class="name">{{ query }}</span></h1>
+                </div>
+                
+                <ProductBox
+                    v-for="product in products"
+                    v-bind:key="product.id"
+                    v-bind:product="product"
+                />
             </div>
-
-            <ProductBox
-                v-for="product in products"
-                v-bind:key="product.id"
-                v-bind:product="product"
-            />
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -47,8 +46,18 @@ export default {
     methods: {
         async performSearch() {
 
-            
+            this.$store.commit('setIsloading', true)
 
+            await axios
+                .post(`/api/v1/products/search/`, {'query': this.query})
+                .then(response => {
+                    this.products = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+            this.$store.commit('setIsloading', false)
         }
     }
     
@@ -57,5 +66,11 @@ export default {
 
  
 <style lang="scss">
-
+.page-search {
+    .title {
+        .name {
+            color: #627b47;
+        }
+    }
+}
 </style>

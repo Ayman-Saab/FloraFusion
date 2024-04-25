@@ -30,6 +30,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    name_category = models.CharField(max_length=255, null=True)
     slug = models.SlugField()
     size = models.CharField(max_length=255, null=True)
     description = models.TextField(blank=True, null=True)

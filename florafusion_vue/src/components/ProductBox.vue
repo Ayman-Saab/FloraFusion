@@ -1,17 +1,20 @@
 <template>
     <div class="column is-3">
-        <div class="box_product_container carousel__item">
-            <figure class="image mb-4 mt-4">
-              <!-- <img v-bind:src="product.get_image"> -->
-              <div class="product_image" :style="{'background-image': `url(${product.get_thumbnail})`}"></div>
-            </figure>
-            <div>
-              <h3 class="is-size-4 product_name">{{ product.name }}</h3>
-              <p>{{ product.size }}</p>
-              <p class="is-size-6 has-text-grey">${{ product.price }}</p>
-              <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">View Details</router-link>
+        <router-link v-bind:to="product.get_absolute_url" class="">
+            <div class="box_product_container carousel__item">
+                <figure class="image mb-4 mt-4">
+                <!-- <img v-bind:src="product.get_image"> -->
+                <div class="product_image" :style="{'background-image': `url(${product.get_thumbnail})`}"></div>
+                </figure>
+                <div class="box-details">
+                    <div class="container_name_price">
+                        <h3 class="is-size-4 product_name">{{ product.name }}</h3>
+                        <p class="is-size-6">{{ product.price }} €</p>
+                    </div>
+                <p>{{ product.size }}</p>
+                </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 
@@ -27,7 +30,6 @@ export default {
  
 <style lang="scss">
 .box_product_container {
-    text-align: center;
     background-color: #F7D08A;
     border-radius: 0;
     height: 100%;
@@ -35,7 +37,21 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     font-weight: 800;
-    padding: 20px;
+    padding: 10px;
+
+
+    .box-details {
+        background-color: #627b47;
+        color: #ffff;
+        text-align: center;
+        padding-bottom: 5px;
+        .container_name_price {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+
         
     .product_name {
         font-weight: 800;
@@ -47,6 +63,12 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
     
+    }
+    .button {
+        background-color: #627b47;
+        font-weight: 600;
+        border-radius: 0;
+        color: #fff;
     }
 }
 </style>

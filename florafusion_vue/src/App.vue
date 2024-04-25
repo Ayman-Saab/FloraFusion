@@ -6,7 +6,7 @@
           <ul class="under_line">
             <li>
               <router-link to="/">
-                <strong class="image_logo">
+                <strong class="image_logo is-size-4">
                   FloraFusion                 
                 </strong>
               </router-link>
@@ -55,13 +55,23 @@
         
             <div class="navbar-item">
               <div class="buttons">
-                <router-link to="/log-in" class="button">LOGIN</router-link>
+                <template v-if="$store.state.isAuthenticated">
+                  <router-link to="/my-account" class="mr-4">
+                    <i class="fa-solid fa-user"></i>
+                  </router-link>
+                </template>
 
-                <router-link to="/cart" class="button">
-                  <span class="icon">
+                <template v-else>
+                  <router-link to="/log-in" class="mr-4">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                  </router-link>
+                </template>
+
+                <router-link to="/cart">
+                  <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
-                  </span>
-                  <span>{{ cartTotalLenght }}</span>
+                    <span class="cartTotal">{{ cartTotalLenght }}</span>
+                  </div>
                 </router-link>
               </div>
             </div>
@@ -74,9 +84,9 @@
       <div class="lds-dual-ring"></div>
     </div>
 
-    <section class="section">
+    <div>
       <router-view/>
-    </section>
+    </div>
 
     <footer class="footer">
       <strong><p class="has-text-centered">&copy; {{ currentYear }} FloraFusion</p></strong>
@@ -85,6 +95,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
   export default {
     data(){
       return {
@@ -97,6 +109,14 @@
     },
     beforeCreate() {
       this.$store.commit('initializeStore')
+
+      const token = this.$store.state.token
+
+      if(token) {
+        axios.defaults.headers.common['Authorization'] = "Token" + token
+      } else {
+        axios.defaults.headers.common['Authorization'] = ""
+      }
     },
     mounted() {
       this.cart = this.$store.state.cart
@@ -163,6 +183,41 @@ body {
 
 .navbar {
   background-color: #627b47;
+
+  .navbar-end {
+    input {
+      border-radius: 0;
+      &:focus {
+        box-shadow: none;
+        border-color: #627b47;
+      }
+    }
+    .button {
+      border-radius: 0;
+    }
+
+    .buttons {
+      
+      a {
+        color: #fff;
+        font-size: 25px;
+      }
+      .cartTotal {
+        color: #fff;
+        font-weight: 900;
+        position: absolute;
+        top: 0;
+        left: 80px;
+        font-size: 15px;
+        background: #F7D08A;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        
+      }
+    }
+  }
 }
 
 
